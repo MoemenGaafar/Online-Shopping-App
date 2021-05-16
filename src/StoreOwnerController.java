@@ -15,10 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*;
+import javafx.fxml.Initializable;
 
 // Controller Class for store owner boundary 
 
-public class StoreOwnerController {
+public class StoreOwnerController implements Initializable{
 	
     private StoreOwner storeOwner; 
     
@@ -137,10 +138,29 @@ public class StoreOwnerController {
     @FXML
     private ChoiceBox<String> OnsiteProductSystemProductChoiceBox1;
     
- // Constructor for controller
-    public StoreOwnerController() throws FileNotFoundException
-    {
-    	// Initialize onsite stores inventory
+    @FXML
+    void addOnlineProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addOnlineSSuggestion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addOnsiteProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addOnsiteSSuggestion(ActionEvent event) {
+
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Initialize onsite stores inventory
     	onsiteStoresInventory = new OnsiteStoresInventory(); 
     	File myObj = new File("onsiteStores.txt");
         Scanner myReader = new Scanner(myObj);
@@ -180,26 +200,7 @@ public class StoreOwnerController {
         
         // Initialize brands inventory
         brandsInventory = new BrandsInventory(); 
-    }
-
-    @FXML
-    void addOnlineProduct(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addOnlineSSuggestion(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addOnsiteProduct(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addOnsiteSSuggestion(ActionEvent event) {
-
-    }
+		
+	}
 
 }

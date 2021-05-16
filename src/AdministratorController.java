@@ -13,9 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*;
+import javafx.fxml.Initializable;
 
 
-public class AdministratorController {
+public class AdministratorController implements Initializable {
 
     @FXML
     private TextField NameTextField;
@@ -67,5 +68,11 @@ public class AdministratorController {
     void addressOnsiteSSuggestion(ActionEvent event) {
 
     }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -15,8 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*; 
+import javafx.fxml.Initializable;
 
-public class BuyerController {
+public class BuyerController implements Initializable{
 
 private Buyer buyer;
 
@@ -26,6 +27,12 @@ public Buyer getBuyer() {
 
 public void setBuyer(Buyer buyer) {
 	this.buyer = buyer;
+}
+
+@Override
+public void initialize(URL arg0, ResourceBundle arg1) {
+	// TODO Auto-generated method stub
+	
 } 
 	
 

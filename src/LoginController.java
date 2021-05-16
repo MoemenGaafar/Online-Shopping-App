@@ -15,10 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*; 
+import javafx.fxml.Initializable;
 
 // Controller class for login boundary
 
-public class LoginController {
+public class LoginController implements Initializable {
 	private Stage prevStage;
 	
 	private BuyerInventory buyerInventory; 
@@ -63,10 +64,18 @@ public class LoginController {
 
     }
     
-    // Constructor for controller
-    public LoginController() throws FileNotFoundException
-    {
-    	// Initialize buyers inventory
+    @FXML
+    void register(ActionEvent event) {
+
+    }
+    
+    public void setStage(Stage prevStage) {
+        this.prevStage = prevStage;
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Initialize buyers inventory
     	buyerInventory = new BuyerInventory(); 
     	File myObj = new File("buyers.txt");
         Scanner myReader = new Scanner(myObj);
@@ -88,16 +97,7 @@ public class LoginController {
           storeOwnerInventory.addStoreOwner(username, password); 
         }
         myReader.close();
-    }
-    
-
-    @FXML
-    void register(ActionEvent event) {
-
-    }
-    
-    public void setStage(Stage prevStage) {
-        this.prevStage = prevStage;
-    }
+		
+	}
 
 }
