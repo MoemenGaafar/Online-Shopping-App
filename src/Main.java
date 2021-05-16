@@ -21,9 +21,9 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/login.fxml"));
         Parent root = loader.load();
 
-        LoginController controller = loader.getController();
+        //LoginController controller = loader.getController();
 
-        controller.setStage(primaryStage);
+        //controller.setStage(primaryStage);
         primaryStage.setTitle("Online Shopping App");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

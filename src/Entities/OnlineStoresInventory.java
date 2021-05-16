@@ -19,9 +19,9 @@ public class OnlineStoresInventory {
 		this.onlineStores = new LinkedList<Store>();
 	}
 	
-	public Boolean addStore(int nationalID, String name, String type, LinkedList<Product> products, StoreOwner storeOwner) {
-		Store store = new Store(nationalID, name, type, storeOwner); 
-		onlineStores.add(store); 
+	public Boolean addStore(int nationalID, String name, String type, StoreOwner storeOwner) {
+		Store onlineStore = new OnlineStore(nationalID, name, type, storeOwner); 
+		onlineStores.add(onlineStore); 
 		return true; 
 	}
 	

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +16,47 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*;
 
-public class StoreOwnerController {
+// Controller Class for store owner boundary 
 
-    @FXML
+public class StoreOwnerController {
+	
+    private StoreOwner storeOwner; 
+    
+    private OnsiteStoresInventory onsiteStoresInventory; 
+    
+    private OnlineStoresInventory onlineStoresInventory; 
+    
+    private SystemProductsInventory systemProductsInventory; 
+    
+    private BrandsInventory brandsInventory; 
+	
+	public StoreOwner getStoreOwner() {
+		return storeOwner;
+	}
+
+	public void setStoreOwner(StoreOwner storeOwner) {
+		this.storeOwner = storeOwner;
+	}
+
+	public OnsiteStoresInventory getOnsiteStoresInventory() {
+		return onsiteStoresInventory;
+	}
+
+	public void setOnsiteStoresInventory(OnsiteStoresInventory onsiteStoresInventory) {
+		this.onsiteStoresInventory = onsiteStoresInventory;
+	}
+
+	public OnlineStoresInventory getOnlineStoresInventory() {
+		return onlineStoresInventory;
+	}
+
+	public void setOnlineStoresInventory(OnlineStoresInventory onlineStoresInventory) {
+		this.onlineStoresInventory = onlineStoresInventory;
+	}
+
+
+
+	@FXML
     private TextField OnlineProductNameTextField;
 
     @FXML
@@ -96,6 +136,51 @@ public class StoreOwnerController {
 
     @FXML
     private ChoiceBox<String> OnsiteProductSystemProductChoiceBox1;
+    
+ // Constructor for controller
+    public StoreOwnerController() throws FileNotFoundException
+    {
+    	// Initialize onsite stores inventory
+    	onsiteStoresInventory = new OnsiteStoresInventory(); 
+    	File myObj = new File("onsiteStores.txt");
+        Scanner myReader = new Scanner(myObj);
+        while (myReader.hasNextLine()) {
+          int nationalID = Integer.parseInt(myReader.nextLine());
+          String name = myReader.nextLine();
+          String type = myReader.nextLine();
+          String username = myReader.nextLine();
+          String password = myReader.nextLine();
+          String address = myReader.nextLine();
+          if (username == this.storeOwner.getUsername())
+          {
+        	  onsiteStoresInventory.addStore(nationalID, name, type, this.storeOwner, address);         	  
+          }          
+        }
+        myReader.close();
+        
+        // Initialize online stores inventory 
+        onlineStoresInventory = new OnlineStoresInventory(); 
+    	myObj = new File("onlineStores.txt");
+        myReader = new Scanner(myObj);
+        while (myReader.hasNextLine()) {
+          int nationalID = Integer.parseInt(myReader.nextLine());
+          String name = myReader.nextLine();
+          String type = myReader.nextLine();
+          String username = myReader.nextLine();
+          String password = myReader.nextLine();
+          if (username == this.storeOwner.getUsername())
+          {
+        	  onlineStoresInventory.addStore(nationalID, name, type, this.storeOwner);         	  
+          }          
+        }
+        myReader.close();
+        
+        // Initialize system products inventory 
+        systemProductsInventory = new SystemProductsInventory(); 
+        
+        // Initialize brands inventory
+        brandsInventory = new BrandsInventory(); 
+    }
 
     @FXML
     void addOnlineProduct(ActionEvent event) {

@@ -19,8 +19,8 @@ public class OnsiteStoresInventory {
 		this.onsiteStores = new LinkedList<Store>();
 	}
 	
-	public Boolean addStore(int nationalID, String name, String type, LinkedList<Product> products, StoreOwner storeOwner) {
-		Store store = new Store(nationalID, name, type, storeOwner); 
+	public Boolean addStore(int nationalID, String name, String type, StoreOwner storeOwner, String address) {
+		OnsiteStore store = new OnsiteStore(nationalID, name, type, storeOwner, address); 
 		onsiteStores.add(store); 
 		return true; 
 	}
