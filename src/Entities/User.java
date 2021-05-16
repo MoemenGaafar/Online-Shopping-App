@@ -1,4 +1,5 @@
 package Entities;
+// Registered users class
 
 public class User {
 

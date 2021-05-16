@@ -1,4 +1,3 @@
-package OnlineShoppingApp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -6,7 +5,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 
-public class main extends Application {
+public class Main extends Application {
 
     // Entry point of the program, starts the GUI
     public static void main(String[] args) {
@@ -19,12 +18,12 @@ public class main extends Application {
         // load and start the GUI from the fxml file.
         // All other functionality originates from Controller.java
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/login.fxml"));
         Parent root = loader.load();
 
-        LoginBoundary boundary = loader.getController();
+        LoginController controller = loader.getController();
 
-        boundary.setStage(primaryStage);
+        controller.setStage(primaryStage);
         primaryStage.setTitle("Online Shopping App");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

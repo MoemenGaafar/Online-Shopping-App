@@ -1,4 +1,5 @@
 package Entities;
+// Administrator user class - inherits User class
 
 public class Administrator extends User {
 

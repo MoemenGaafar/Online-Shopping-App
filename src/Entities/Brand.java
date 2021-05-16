@@ -1,5 +1,7 @@
 package Entities;
 
+// Brands class
+
 public class Brand {
 
 	int brandID; 

@@ -1,4 +1,6 @@
 package Entities;
+// Store owner users class - inherits User class
+
 
 public class StoreOwner extends  User{
 

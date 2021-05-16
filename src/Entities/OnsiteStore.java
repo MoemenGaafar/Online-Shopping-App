@@ -1,14 +1,14 @@
 package Entities;
 
-import java.util.LinkedList;
+//Onsite stores Class - inherits Store class
 
 
 public class OnsiteStore extends Store{
 	
 	String address; 
 
-	public OnsiteStore(int nationalID, String name, Types type, LinkedList<Product> products, String address) {
-		super(nationalID, name, type, products);
+	public OnsiteStore(int nationalID, String name, String type, StoreOwner storeOwner, String address) {
+		super(nationalID, name, type, storeOwner);
 		this.address =  address; 
 	}
 

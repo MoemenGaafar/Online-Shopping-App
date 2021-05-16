@@ -1,4 +1,5 @@
 package Entities;
+// Buyer user class - inherits User class
 
 public class Buyer extends User {
 	

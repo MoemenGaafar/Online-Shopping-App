@@ -1,4 +1,5 @@
 package Entities;
+// System products class
 
 class range{
 	int min; 

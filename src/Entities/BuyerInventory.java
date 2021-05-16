@@ -1,4 +1,5 @@
 package Entities;
+// Inventory of all registered buyers using linked list
 
 import java.util.LinkedList;
 

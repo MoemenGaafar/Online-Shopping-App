@@ -1,8 +1,8 @@
 package Entities;
+// Products class
 
 public class Product {
 
-	int productID; 
 	String name; 
 	int price; 
 	String description; 
@@ -18,12 +18,6 @@ public class Product {
 	}
 	public void setSystemProduct(SystemProduct systemProduct) {
 		this.systemProduct = systemProduct;
-	}
-	public int getProductID() {
-		return productID;
-	}
-	public void setProductID(int productID) {
-		this.productID = productID;
 	}
 	public String getName() {
 		return name;
@@ -67,10 +61,10 @@ public class Product {
 	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
-	public Product(int productID, String name, int price, String description, int quantity, String agreement,
+	public Product(String name, int price, String description, int quantity, String agreement,
 			Types type, Brand brand, SystemProduct systemProduct) {
 		if (price <= systemProduct.priceRange.max && price >= systemProduct.priceRange.min) {
-		this.productID = productID;
+		
 		this.name = name;		
 		this.price = price;
 		this.description = description;
@@ -85,7 +79,7 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [productID=" + productID + ", name=" + name + ", price=" + price + ", description="
+		return "Product [ name=" + name + ", price=" + price + ", description="
 				+ description + ", quantity=" + quantity + ", agreement=" + agreement + ", type=" + type + ", brand="
 				+ brand + ", systemProduct=" + systemProduct + "]";
 	} 

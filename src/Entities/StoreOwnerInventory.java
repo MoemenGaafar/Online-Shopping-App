@@ -1,4 +1,6 @@
 package Entities;
+//Inventory of all registered store users using linked list
+
 
 import java.util.LinkedList;
 

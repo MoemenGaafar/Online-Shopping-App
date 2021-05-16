@@ -1,4 +1,5 @@
 package Entities;
+//Categories class
 
 public class Category {
 

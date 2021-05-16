@@ -1,4 +1,5 @@
 package Entities;
+// Stores class
 
 import java.util.*;
 
@@ -6,7 +7,7 @@ public class Store {
 
 	int nationalID; 
 	String name; 
-	Types type; 
+	String type; 
 	StoreOwner storeOwner; 
 	LinkedList<Product> products;
 	
@@ -28,10 +29,10 @@ public class Store {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Types getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(Types type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public LinkedList<Product> getProducts() {
@@ -41,7 +42,7 @@ public class Store {
 		this.products = products;
 	}
 	
-	public Store(int nationalID, String name, Types type, StoreOwner storeOwner) {
+	public Store(int nationalID, String name, String type, StoreOwner storeOwner) {
 		super();
 		this.nationalID = nationalID;
 		this.name = name;
@@ -50,9 +51,9 @@ public class Store {
 		this.storeOwner = storeOwner; 
 	} 
 	
-	boolean addProduct(int productID, String name, int price, String description, int quantity, String agreement,
+	boolean addProduct( String name, int price, String description, int quantity, String agreement,
 			Types type, Brand brand, SystemProduct systemProduct) {
-		Product product = new Product(productID, name,price, description, quantity, agreement,
+		Product product = new Product(name,price, description, quantity, agreement,
 				type, brand, systemProduct); 
 		products.add(product); 
 		return true; 
@@ -60,7 +61,7 @@ public class Store {
 	
 	@Override
 	public String toString() {
-		return "Store [nationalID=" + nationalID + ", name=" + name + ", type=" + type + ", products=" + products + "]";
+		return "Store [nationalID=" + nationalID + ", name=" + name + ", type=" + type + ", products=" + products + ", store owner=" + storeOwner.username + "]";
 	}
 	
 	
