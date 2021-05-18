@@ -81,7 +81,7 @@ public class LoginController implements Initializable {
 		try {
 			File currentDir = new File(".");
 		    File parentDir = currentDir.getParentFile();
-	    	File myObj = new File(parentDir, "resources\\storeOwners.txt");
+	    	File myObj = new File(parentDir, "\\resources\\storeOwners.txt");
 	        Scanner myReader = new Scanner(myObj);
 	        while (myReader.hasNextLine()) {
 	          String username = myReader.nextLine();
@@ -99,7 +99,7 @@ public class LoginController implements Initializable {
 		// Initialize buyers inventory
 		buyerInventory = new BuyerInventory();
 		try {
-	    	File myObj = new File("buyers.txt");
+	    	File myObj = new File("\\buyers.txt");
 	        Scanner myReader = new Scanner(myObj);
 	        while (myReader.hasNextLine()) {
 	          String username = myReader.nextLine();
