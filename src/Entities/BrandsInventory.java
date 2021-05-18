@@ -19,4 +19,11 @@ public class BrandsInventory {
 		this.brands = new LinkedList<Brand>();
 	}
 	
+	public Boolean addBrand(String name)
+	{
+		Brand brand = new Brand(name); 
+		brands.add(brand); 
+		return true; 	
+	}
+	
 }

@@ -1,22 +1,24 @@
 package Entities;
 //Inventory of all registered onsite stores using linked list
 
-import java.util.LinkedList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class OnsiteStoresInventory {
 
-	LinkedList<Store> onsiteStores;
+	ObservableList<Store> onsiteStores;
 
-	public LinkedList<Store> getStores() {
+	public ObservableList<Store> getStores() {
 		return onsiteStores;
 	}
 
-	public void setStores(LinkedList<Store> onsiteStores) {
+	public void setStores(ObservableList<Store> onsiteStores) {
 		this.onsiteStores = onsiteStores;
 	}
 
 	public OnsiteStoresInventory() {
-		this.onsiteStores = new LinkedList<Store>();
+		this.onsiteStores = FXCollections.emptyObservableList();
 	}
 	
 	public Boolean addStore(int nationalID, String name, String type, StoreOwner storeOwner, String address) {

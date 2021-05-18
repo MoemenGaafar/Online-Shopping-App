@@ -160,16 +160,17 @@ public class StoreOwnerController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		// Initialize onsite stores inventory
-    	onsiteStoresInventory = new OnsiteStoresInventory(); 
-    	File myObj = new File("onsiteStores.txt");
+		onsiteStoresInventory = new OnsiteStoresInventory(); 
+		try {    	
+    	File myObj = new File("resources\\onsiteStores.txt");
         Scanner myReader = new Scanner(myObj);
         while (myReader.hasNextLine()) {
           int nationalID = Integer.parseInt(myReader.nextLine());
           String name = myReader.nextLine();
           String type = myReader.nextLine();
           String username = myReader.nextLine();
-          String password = myReader.nextLine();
           String address = myReader.nextLine();
           if (username == this.storeOwner.getUsername())
           {
@@ -177,30 +178,70 @@ public class StoreOwnerController implements Initializable{
           }          
         }
         myReader.close();
+		}
+		catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
         
         // Initialize online stores inventory 
-        onlineStoresInventory = new OnlineStoresInventory(); 
-    	myObj = new File("onlineStores.txt");
-        myReader = new Scanner(myObj);
-        while (myReader.hasNextLine()) {
-          int nationalID = Integer.parseInt(myReader.nextLine());
-          String name = myReader.nextLine();
-          String type = myReader.nextLine();
-          String username = myReader.nextLine();
-          String password = myReader.nextLine();
-          if (username == this.storeOwner.getUsername())
-          {
-        	  onlineStoresInventory.addStore(nationalID, name, type, this.storeOwner);         	  
-          }          
-        }
-        myReader.close();
+		onlineStoresInventory = new OnlineStoresInventory(); 
+        try {        	
+        	File myObj = new File("resources\\onlineStores.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              int nationalID = Integer.parseInt(myReader.nextLine());
+              String name = myReader.nextLine();
+              String type = myReader.nextLine();
+              String username = myReader.nextLine();
+              if (username == this.storeOwner.getUsername())
+              {
+            	  onlineStoresInventory.addStore(nationalID, name, type, this.storeOwner);         	  
+              }          
+            }
+            myReader.close();        
+	    }
+        catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
         
         // Initialize system products inventory 
         systemProductsInventory = new SystemProductsInventory(); 
+        try {        	
+        	File myObj = new File("resources\\systemProducts.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              String name = myReader.nextLine();
+              int min = Integer.parseInt(myReader.nextLine());
+              int max = Integer.parseInt(myReader.nextLine());
+              Types type = Types.valueOf(myReader.nextLine());
+              String categoryName = myReader.nextLine();
+              Category category = new Category(categoryName);
+              systemProductsInventory.addProduct(name, min, max, type, category);        
+            }
+            myReader.close();        
+	    }
+        catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
         
         // Initialize brands inventory
         brandsInventory = new BrandsInventory(); 
-		
+        try {        	
+        	File myObj = new File("resources\\brands.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+              String name = myReader.nextLine();
+              brandsInventory.addBrand(name);        
+            }
+            myReader.close();        
+	    }
+        catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
 	}
 
 }

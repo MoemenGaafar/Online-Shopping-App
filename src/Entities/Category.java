@@ -3,15 +3,8 @@ package Entities;
 
 public class Category {
 
-	int categoryID; 
 	String categoryName;
 	
-	public int getCategoryID() {
-		return categoryID;
-	}
-	public void setCategoryID(int categoryID) {
-		this.categoryID = categoryID;
-	}
 	public String getCategoryName() {
 		return categoryName;
 	}
@@ -19,8 +12,7 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 	
-	public Category(int categoryID, String categoryName) {
-		this.categoryID = categoryID;
+	public Category(String categoryName) {
 		this.categoryName = categoryName;
 	} 
 	

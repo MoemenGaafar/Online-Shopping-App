@@ -4,14 +4,8 @@ package Entities;
 
 public class Brand {
 
-	int brandID; 
 	String BrandName;
-	public int getBrandID() {
-		return brandID;
-	}
-	public void setBrandID(int brandID) {
-		this.brandID = brandID;
-	}
+	
 	public String getBrandName() {
 		return BrandName;
 	}
@@ -19,8 +13,7 @@ public class Brand {
 		BrandName = brandName;
 	}
 	
-	public Brand(int brandID, String brandName) {
-		this.brandID = brandID;
+	public Brand(String brandName) {
 		BrandName = brandName;
 	} 
 	

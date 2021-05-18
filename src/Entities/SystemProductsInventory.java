@@ -19,7 +19,7 @@ public class SystemProductsInventory {
 		this.systemProducts = new LinkedList<SystemProduct>();
 	}
 	
-	public Boolean addproduct(String name, int min, int max, range priceRange, Types type, Category category) {
+	public Boolean addProduct(String name, int min, int max, Types type, Category category) {
 		SystemProduct systemProduct = new SystemProduct(name, min, max, type,category); 
 		systemProducts.add(systemProduct); 
 		return true; 

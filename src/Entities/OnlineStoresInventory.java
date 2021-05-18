@@ -1,22 +1,24 @@
 package Entities;
 //Inventory of all registered online stores using linked list
 
-import java.util.LinkedList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class OnlineStoresInventory {
 
-	LinkedList<Store> onlineStores;
+	ObservableList<Store> onlineStores;
 
-	public LinkedList<Store> getStores() {
+	public ObservableList<Store> getStores() {
 		return onlineStores;
 	}
 
-	public void setStores(LinkedList<Store> onlineStores) {
+	public void setStores(ObservableList<Store> onlineStores) {
 		this.onlineStores = onlineStores;
 	}
 
 	public OnlineStoresInventory() {
-		this.onlineStores = new LinkedList<Store>();
+		this.onlineStores = FXCollections.emptyObservableList();
 	}
 	
 	public Boolean addStore(int nationalID, String name, String type, StoreOwner storeOwner) {

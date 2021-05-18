@@ -75,28 +75,46 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		// Initialize store owners inventory
+		storeOwnerInventory = new StoreOwnerInventory();
+		try {
+			File currentDir = new File(".");
+		    File parentDir = currentDir.getParentFile();
+	    	File myObj = new File(parentDir, "resources\\storeOwners.txt");
+	        Scanner myReader = new Scanner(myObj);
+	        while (myReader.hasNextLine()) {
+	          String username = myReader.nextLine();
+	          String password = myReader.nextLine();
+	          storeOwnerInventory.addStoreOwner(username, password); 
+	        }
+	        myReader.close();        
+		}
+		catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }	
+		
+		
 		// Initialize buyers inventory
-    	buyerInventory = new BuyerInventory(); 
-    	File myObj = new File("buyers.txt");
-        Scanner myReader = new Scanner(myObj);
-        while (myReader.hasNextLine()) {
-          String username = myReader.nextLine();
-          String password = myReader.nextLine();
-          String address = myReader.nextLine();
-          buyerInventory.addBuyer(username, password, address); 
-        }
-        myReader.close();
+		buyerInventory = new BuyerInventory();
+		try {
+	    	File myObj = new File("buyers.txt");
+	        Scanner myReader = new Scanner(myObj);
+	        while (myReader.hasNextLine()) {
+	          String username = myReader.nextLine();
+	          String password = myReader.nextLine();
+	          String address = myReader.nextLine();
+	          buyerInventory.addBuyer(username, password, address);}
+	          myReader.close();    	
+		}
+		catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+       
         
-        // Initialize store owners inventory
-        storeOwnerInventory = new StoreOwnerInventory(); 
-    	myObj = new File("buyers.txt");
-        myReader = new Scanner(myObj);
-        while (myReader.hasNextLine()) {
-          String username = myReader.nextLine();
-          String password = myReader.nextLine();
-          storeOwnerInventory.addStoreOwner(username, password); 
-        }
-        myReader.close();
+        
 		
 	}
 
