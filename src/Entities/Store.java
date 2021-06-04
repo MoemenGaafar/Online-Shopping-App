@@ -5,10 +5,10 @@ import java.util.*;
 
 public class Store {
 
-	int nationalID; 
-	String name; 
-	String type; 
-	StoreOwner storeOwner; 
+	int nationalID;
+	String name;
+	String type;
+	StoreOwner storeOwner;
 	LinkedList<Product> products;
 	
 	public StoreOwner getStoreOwner() {
@@ -54,7 +54,7 @@ public class Store {
 	boolean addProduct( String name, int price, String description, int quantity, String agreement,
 			Types type, Brand brand, SystemProduct systemProduct) {
 		Product product = new Product(name,price, description, quantity, agreement,
-				type, brand, systemProduct); 
+				brand, systemProduct); 
 		products.add(product); 
 		return true; 
 	}

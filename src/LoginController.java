@@ -76,9 +76,18 @@ public class LoginController implements Initializable {
     void register(ActionEvent event) throws IOException {
         String username = UsernameTextField.getText();
         String password = PasswordTextField.getText();
-        FileWriter fw = new FileWriter("myfile.txt", true);
+        String type = TypeChoiceBox.getValue();
+        
+        String filename = "";
+        if (type == "Store Owner") {
+        	filename = "storeOwners.txt";
+        }
+        else if (type == "Buyer") {
+        	filename = "buyers.txt";
+        }
+        FileWriter fw = new FileWriter("src\\resources\\" + filename, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(username + "\n" + password);
+        bw.write(username + "\n" + password + "\n");
         bw.close();
     }
     
