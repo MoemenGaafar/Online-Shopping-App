@@ -28,7 +28,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/login.fxml"));
         Parent root = loader.load();
 
-        LoginController controller = loader.getController();
+        LoginBoundary boundary = loader.getController();
 
         controller.setStage(primaryStage);
         primaryStage.setTitle("Shopping Application");
