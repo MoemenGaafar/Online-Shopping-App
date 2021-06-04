@@ -1,12 +1,17 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,12 +19,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Entities.*; 
+import Entities.*;
+//import classes.AlertBox;
+//import classes.login.LoginController;
 import javafx.fxml.Initializable;
 
 // Controller class for login boundary
 
 public class LoginController implements Initializable {
+	
 	private Stage prevStage;
 	
 	private BuyerInventory buyerInventory; 
@@ -65,8 +73,13 @@ public class LoginController implements Initializable {
     }
     
     @FXML
-    void register(ActionEvent event) {
-
+    void register(ActionEvent event) throws IOException {
+        String username = UsernameTextField.getText();
+        String password = PasswordTextField.getText();
+        FileWriter fw = new FileWriter("myfile.txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(username + "\n" + password);
+        bw.close();
     }
     
     public void setStage(Stage prevStage) {
@@ -79,9 +92,8 @@ public class LoginController implements Initializable {
 		// Initialize store owners inventory
 		storeOwnerInventory = new StoreOwnerInventory();
 		try {
-			File currentDir = new File(".");
-		    File parentDir = currentDir.getParentFile();
-	    	File myObj = new File(parentDir, "\\resources\\storeOwners.txt");
+	    	File myObj = new File("src\\resources\\storeOwners.txt");
+	    	System.out.println(myObj.getAbsolutePath());
 	        Scanner myReader = new Scanner(myObj);
 	        while (myReader.hasNextLine()) {
 	          String username = myReader.nextLine();
@@ -99,7 +111,8 @@ public class LoginController implements Initializable {
 		// Initialize buyers inventory
 		buyerInventory = new BuyerInventory();
 		try {
-	    	File myObj = new File("\\buyers.txt");
+	    	File myObj = new File("src\\resources\\buyers.txt");
+	    	System.out.println(myObj.getAbsolutePath());
 	        Scanner myReader = new Scanner(myObj);
 	        while (myReader.hasNextLine()) {
 	          String username = myReader.nextLine();
@@ -113,9 +126,10 @@ public class LoginController implements Initializable {
 		      e.printStackTrace();
 		    }
        
-        
-        
+		TypeChoiceBox.getItems().add("Store Owner");
 		
+		TypeChoiceBox.getItems().add("Buyer");
+
 	}
 
 }
