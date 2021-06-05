@@ -21,7 +21,9 @@ import javafx.fxml.Initializable;
 
 public class StoreOwnerController implements Initializable{
 	
-    private StoreOwner storeOwner; 
+	private Stage prevStage;
+
+	private StoreOwner storeOwner; 
     
     private OnsiteStoresInventory onsiteStoresInventory; 
     
@@ -31,6 +33,11 @@ public class StoreOwnerController implements Initializable{
     
     private BrandsInventory brandsInventory; 
 	
+    public void setStage(Stage prevStage) {
+        this.prevStage = prevStage;
+    }
+    	
+    
 	public StoreOwner getStoreOwner() {
 		return storeOwner;
 	}
@@ -164,7 +171,7 @@ public class StoreOwnerController implements Initializable{
 		// Initialize onsite stores inventory
 		onsiteStoresInventory = new OnsiteStoresInventory(); 
 		try {    	
-    	File myObj = new File("resources\\onsiteStores.txt");
+    	File myObj = new File("src\\resources\\onsiteStores.txt");
         Scanner myReader = new Scanner(myObj);
         while (myReader.hasNextLine()) {
           int nationalID = Integer.parseInt(myReader.nextLine());
@@ -187,7 +194,7 @@ public class StoreOwnerController implements Initializable{
         // Initialize online stores inventory 
 		onlineStoresInventory = new OnlineStoresInventory(); 
         try {        	
-        	File myObj = new File("resources\\onlineStores.txt");
+        	File myObj = new File("src\\resources\\onlineStores.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               int nationalID = Integer.parseInt(myReader.nextLine());
@@ -209,7 +216,7 @@ public class StoreOwnerController implements Initializable{
         // Initialize system products inventory 
         systemProductsInventory = new SystemProductsInventory(); 
         try {        	
-        	File myObj = new File("resources\\systemProducts.txt");
+        	File myObj = new File("src\\resources\\systemProducts.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String name = myReader.nextLine();
@@ -230,7 +237,7 @@ public class StoreOwnerController implements Initializable{
         // Initialize brands inventory
         brandsInventory = new BrandsInventory(); 
         try {        	
-        	File myObj = new File("resources\\brands.txt");
+        	File myObj = new File("src\\resources\\brands.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String name = myReader.nextLine();
@@ -243,5 +250,6 @@ public class StoreOwnerController implements Initializable{
 		      e.printStackTrace();
 		    }
 	}
+	
 
 }

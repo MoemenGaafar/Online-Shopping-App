@@ -20,6 +20,10 @@
             <Button fx:id="Button" layoutX="481.0" layoutY="309.0" mnemonicParsing="false" onAction="#register" text="signup" />
             <Text layoutX="190.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
             <ChoiceBox fx:id="TypeChoiceBox" layoutX="273.0" layoutY="71.0" prefWidth="150.0" />
+            <Text fx:id="AddressNoticeLabel" fill="#ff0303" layoutX="432.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You don't have to enter your address to login into an existing account" visible="false" wrappingWidth="201.703857421875" />
+            <TextField fx:id="AddressTextField" layoutX="274.0" layoutY="210.0" visible="false" />
+            <Text fx:id="AddressLabel" layoutX="190.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" visible="false" />
+            <Text fx:id="AddressLabel1" layoutX="200.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" visible="false" />
       </children>
     </AnchorPane>
   </children>

@@ -21,6 +21,8 @@ public class BuyerController implements Initializable{
 
 private Buyer buyer;
 
+private Stage prevStage;
+
 public Buyer getBuyer() {
 	return buyer;
 }
@@ -34,6 +36,9 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	// TODO Auto-generated method stub
 	
 } 
-	
 
+public void setStage(Stage prevStage) {
+    this.prevStage = prevStage;
+}
+	
 }
