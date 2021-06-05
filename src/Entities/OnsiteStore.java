@@ -7,8 +7,8 @@ public class OnsiteStore extends Store{
 	
 	String address; 
 
-	public OnsiteStore(int nationalID, String name, String type, StoreOwner storeOwner, String address) {
-		super(nationalID, name, type, storeOwner);
+	public OnsiteStore(int storeID, String name, String type, StoreOwner storeOwner, String address) {
+		super(storeID, name, type, storeOwner);
 		this.address =  address; 
 	}
 
@@ -22,7 +22,7 @@ public class OnsiteStore extends Store{
 
 	@Override
 	public String toString() {
-		return "OnsiteStore [nationalID=" + nationalID + ", name=" + name + ", type=" + type
+		return "OnsiteStore [storeID=" + storeID + ", name=" + name + ", type=" + type
 				+ ", products=" + products + "address=" + address +  "]";
 	}
 

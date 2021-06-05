@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -22,11 +23,13 @@ public class AdministratorController implements Initializable {
 	
     private Administrator administrator; 
     
-    private OnsiteStoresInventory onsiteStoreSuggestionsInventory; 
+    private LinkedList<OnsiteStore> onsiteStoreSuggestionsList; 
     
-    private OnlineStoresInventory onlineStoreSuggestionsInventory;
+    private LinkedList<OnlineStore> onlineStoreSuggestionsList; 
     
-    private CategoriesInventory categoriesInventory; 
+    private LinkedList<Category> categoriesList;
+    
+    private LinkedList<Brand> brandsList;
 
     
     
@@ -38,29 +41,30 @@ public class AdministratorController implements Initializable {
 		this.administrator = administrator;
 	}
 
-	public OnsiteStoresInventory getOnsiteStoreSuggestionsInventory() {
-		return onsiteStoreSuggestionsInventory;
+	public LinkedList<OnsiteStore> getOnsiteStoreSuggestionsList() {
+		return onsiteStoreSuggestionsList;
 	}
 
-	public void setOnsiteStoreSuggestionsInventory(OnsiteStoresInventory onsiteStoreSuggestionsInventory) {
-		this.onsiteStoreSuggestionsInventory = onsiteStoreSuggestionsInventory;
+	public void setOnsiteStoreSuggestionsList(LinkedList<OnsiteStore> onsiteStoreSuggestionsList) {
+		this.onsiteStoreSuggestionsList = onsiteStoreSuggestionsList;
 	}
 
-	public OnlineStoresInventory getOnlineStoreSuggestionsInventory() {
-		return onlineStoreSuggestionsInventory;
+	public LinkedList<OnlineStore> getOnlineStoreSuggestionsList() {
+		return onlineStoreSuggestionsList;
 	}
 
-	public void setOnlineStoreSuggestionsInventory(OnlineStoresInventory onlineStoreSuggestionsInventory) {
-		this.onlineStoreSuggestionsInventory = onlineStoreSuggestionsInventory;
+	public void setOnlineStoreSuggestionsList(LinkedList<OnlineStore> onlineStoreSuggestionsList) {
+		this.onlineStoreSuggestionsList = onlineStoreSuggestionsList;
 	}
 
-	public CategoriesInventory getCategoriesInventory() {
-		return categoriesInventory;
+	public LinkedList<Category> getCategoriesList() {
+		return categoriesList;
 	}
 
-	public void setCategoriesInventory(CategoriesInventory categoriesInventory) {
-		this.categoriesInventory = categoriesInventory;
+	public void setCategoriesList(LinkedList<Category> categoriesList) {
+		this.categoriesList = categoriesList;
 	}
+
 
 	@FXML
     private TextField NameTextField;
@@ -96,7 +100,23 @@ public class AdministratorController implements Initializable {
     private Button OnsiteAddressSSuggestionButton;
 
     @FXML
-    private ChoiceBox<Boolean> OnsiteSSuggestionAction;
+    private ChoiceBox<Boolean> OnsiteSSuggestionAction; 
+    
+
+    @FXML
+    private TextField BrandNameTextField;
+
+    @FXML
+    private ChoiceBox<String> BrandCategoryNameChoiceBox;
+
+    @FXML
+    private Button AddBrandButton;
+    
+
+    @FXML
+    void addBrand(ActionEvent event) {
+
+    }
 
     @FXML
     void addSystemProduct(ActionEvent event) {
@@ -117,13 +137,14 @@ public class AdministratorController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		// Initialize categories inventory
-		categoriesInventory = new CategoriesInventory(); 
+	    categoriesList = new LinkedList<Category>(); 
         try {        	
         	File myObj = new File("resources\\brands.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String name = myReader.nextLine();
-              categoriesInventory.addCategory(name);        
+              Category category = new Category(name); 
+              categoriesList.add(category);        
             }
             myReader.close();        
 	    }
@@ -133,7 +154,7 @@ public class AdministratorController implements Initializable {
 		    }
 		
      // Initialize onsite stores inventory
-     		onsiteStoreSuggestionsInventory = new OnsiteStoresInventory(); 
+            onsiteStoreSuggestionsList = new LinkedList<OnsiteStore>(); 
      		try {    	
          	File myObj = new File("resources\\onsiteStores.txt");
              Scanner myReader = new Scanner(myObj);
@@ -144,7 +165,8 @@ public class AdministratorController implements Initializable {
                String username = myReader.nextLine();
                String address = myReader.nextLine();
                StoreOwner storeOwner = new StoreOwner(username, "-"); 
-               onsiteStoreSuggestionsInventory.addStore(nationalID, name, type, storeOwner, address);
+               OnsiteStore onsiteStoreSuggestion = new OnsiteStore(nationalID, name, type, storeOwner, address);
+               onsiteStoreSuggestionsList.add(onsiteStoreSuggestion); 
                }
              myReader.close();
      		}
@@ -154,7 +176,7 @@ public class AdministratorController implements Initializable {
      		    }
              
              // Initialize online stores inventory 
-     		onlineStoreSuggestionsInventory = new OnlineStoresInventory(); 
+     		onlineStoreSuggestionsList = new LinkedList<OnlineStore>();  
              try {        	
              	File myObj = new File("resources\\onlineStores.txt");
                  Scanner myReader = new Scanner(myObj);
@@ -164,8 +186,29 @@ public class AdministratorController implements Initializable {
                    String type = myReader.nextLine();
                    String username = myReader.nextLine();
                    StoreOwner storeOwner = new StoreOwner(username, "-"); 
-                   onlineStoreSuggestionsInventory.addStore(nationalID, name, type, storeOwner); 	  
+                   OnlineStore onlineStoreSuggestion = new OnlineStore(nationalID, name, type, storeOwner);
+                   onlineStoreSuggestionsList.add(onlineStoreSuggestion);   
                             
+                 }
+                 myReader.close();        
+     	    }
+             catch (FileNotFoundException e) {
+     		      System.out.println("An error occurred.");
+     		      e.printStackTrace();
+     		    }
+             
+             
+          // Initialize brands inventory
+             brandsList = new LinkedList<Brand>(); 
+             try {        	
+             	File myObj = new File("src\\resources\\brands.txt");
+                 Scanner myReader = new Scanner(myObj);
+                 while (myReader.hasNextLine()) {
+                   String name = myReader.nextLine();
+                   String categoryName = myReader.nextLine();
+                   Category category = new Category(categoryName);
+                   Brand brand = new Brand(name, category); 
+                   brandsList.add(brand);        
                  }
                  myReader.close();        
      	    }

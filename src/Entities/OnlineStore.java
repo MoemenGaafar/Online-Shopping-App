@@ -3,13 +3,13 @@ package Entities;
 
 public class OnlineStore extends Store {
 
-	public OnlineStore(int nationalID, String name, String type, StoreOwner storeOwner) {
-		super(nationalID, name, type, storeOwner);
+	public OnlineStore(int storeID, String name, String type, StoreOwner storeOwner) {
+		super(storeID, name, type, storeOwner);
 	}
 
 	@Override
 	public String toString() {
-		return "OnlineStore [nationalID=" + nationalID + ", name=" + name + ", type=" + type + ", products=" + products
+		return "OnlineStore [storeID=" + storeID + ", name=" + name + ", type=" + type + ", products=" + products
 				+ "]";
 	}
 

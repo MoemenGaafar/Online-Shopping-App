@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Store {
 
-	int nationalID;
+	int storeID;
 	String name;
 	String type;
 	StoreOwner storeOwner;
@@ -17,11 +17,11 @@ public class Store {
 	public void setStoreOwner(StoreOwner storeOwner) {
 		this.storeOwner = storeOwner;
 	}
-	public int getNationalID() {
-		return nationalID;
+	public int getStoreID() {
+		return storeID;
 	}
-	public void setNationalID(int nationalID) {
-		this.nationalID = nationalID;
+	public void setStoreID(int storeID) {
+		this.storeID = storeID;
 	}
 	public String getName() {
 		return name;
@@ -42,9 +42,9 @@ public class Store {
 		this.products = products;
 	}
 	
-	public Store(int nationalID, String name, String type, StoreOwner storeOwner) {
+	public Store(int storeID, String name, String type, StoreOwner storeOwner) {
 		super();
-		this.nationalID = nationalID;
+		this.storeID = storeID;
 		this.name = name;
 		this.type = type;
 		this.products = new LinkedList<Product>();
@@ -61,7 +61,7 @@ public class Store {
 	
 	@Override
 	public String toString() {
-		return "Store [nationalID=" + nationalID + ", name=" + name + ", type=" + type + ", products=" + products + ", store owner=" + storeOwner.username + "]";
+		return "Store [nationalID=" + storeID + ", name=" + name + ", type=" + type + ", products=" + products + ", store owner=" + storeOwner.username + "]";
 	}
 	
 	

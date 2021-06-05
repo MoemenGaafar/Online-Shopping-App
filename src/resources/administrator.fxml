@@ -70,6 +70,19 @@
                   </AnchorPane>
             </content>
           </Tab>
+          <Tab text="Add Brand">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="174.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brand Name" />
+                        <TextField fx:id="BrandNameTextField" layoutX="287.0" layoutY="62.0" />
+                        <Text layoutX="174.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" />
+                        <ChoiceBox fx:id="BrandCategoryNameChoiceBox" layoutX="286.0" layoutY="117.0" prefWidth="150.0" />
+                        <Button fx:id="AddBrandButton" layoutX="261.0" layoutY="193.0" mnemonicParsing="false" onAction="#addBrand" text="Add Brand" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
         </tabs>
       </TabPane>
    </children>
