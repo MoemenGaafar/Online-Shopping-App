@@ -46,6 +46,9 @@ public class Product {
 	public int getQuantity() {
 		return quantity;
 	}
+	public String getStoreName() {
+		return this.getStore().getName();
+	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}

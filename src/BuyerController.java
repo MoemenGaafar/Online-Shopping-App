@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -157,16 +158,27 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	
 	final ObservableList<Product> productsData = FXCollections.observableArrayList(productsList);
 	
-//	ProductNameCol.setCellValueFactory(
-//		    new PropertyValueFactory<Person,String>("firstName")
-//		);
-//		lastNameCol.setCellValueFactory(
-//		    new PropertyValueFactory<Person,String>("lastName")
-//		);
-//		emailCol.setCellValueFactory(
-//		    new PropertyValueFactory<Person,String>("email")
-//		);
+	ProductNameCol.setCellValueFactory(
+		    new PropertyValueFactory<Product,String>("name")
+		);
 	
+	ProductPriceCol.setCellValueFactory(
+		    new PropertyValueFactory<Product,Integer>("price")
+		);
+	
+	ProductDescriptionCol.setCellValueFactory(
+		    new PropertyValueFactory<Product,String>("description")
+		);
+	
+	ProductQuantityCol.setCellValueFactory(
+		    new PropertyValueFactory<Product,Integer>("quantity")
+		);
+	
+	ProductStoreNameCol.setCellValueFactory(
+		    new PropertyValueFactory<Product,String>("storeName")
+		);
+	 ProductsTableView.setItems(productsData);
+
 } 
 
 public void setStage(Stage prevStage) {
