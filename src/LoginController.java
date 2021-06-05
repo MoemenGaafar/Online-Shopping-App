@@ -76,12 +76,31 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
+		File file = new File(".");
+		for(String fileNames : file.list()) System.out.println(fileNames);
+		
+		// Initialize buyers inventory
+		buyerInventory = new BuyerInventory();
+		try {
+	    	File myObj = new File("\\src\\resources\\buyers.txt");
+	        Scanner myReader = new Scanner(myObj);
+	        while (myReader.hasNextLine()) {
+	          String username = myReader.nextLine();
+	          String password = myReader.nextLine();
+	          String address = myReader.nextLine();
+	          buyerInventory.addBuyer(username, password, address);}
+	          myReader.close();    	
+		}
+		catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }				
+		       
+		
 		// Initialize store owners inventory
 		storeOwnerInventory = new StoreOwnerInventory();
-		try {
-			File currentDir = new File(".");
-		    File parentDir = currentDir.getParentFile();
-	    	File myObj = new File(parentDir, "\\resources\\storeOwners.txt");
+		try {			
+	    	File myObj = new File("storeOwners.txt");
 	        Scanner myReader = new Scanner(myObj);
 	        while (myReader.hasNextLine()) {
 	          String username = myReader.nextLine();
@@ -96,23 +115,7 @@ public class LoginController implements Initializable {
 		    }	
 		
 		
-		// Initialize buyers inventory
-		buyerInventory = new BuyerInventory();
-		try {
-	    	File myObj = new File("\\buyers.txt");
-	        Scanner myReader = new Scanner(myObj);
-	        while (myReader.hasNextLine()) {
-	          String username = myReader.nextLine();
-	          String password = myReader.nextLine();
-	          String address = myReader.nextLine();
-	          buyerInventory.addBuyer(username, password, address);}
-	          myReader.close();    	
-		}
-		catch (FileNotFoundException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
-       
+		
         
         
 		
