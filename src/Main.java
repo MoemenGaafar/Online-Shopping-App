@@ -4,6 +4,9 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
+import java.io.File;  // Import the File class
+import java.util.Scanner; // Import the Scanner class to read text files
+
 
 public class Main extends Application {
 
@@ -17,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         // load and start the GUI from the fxml file.
         // All other functionality originates from Controller.java
-
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/login.fxml"));
         Parent root = loader.load();
 

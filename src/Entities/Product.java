@@ -8,7 +8,6 @@ public class Product {
 	String description; 
 	int quantity; 
 	String agreement; 
-	Types type;
 	Brand brand; 
 	SystemProduct systemProduct; 
 	
@@ -49,12 +48,7 @@ public class Product {
 	public void setAgreement(String agreement) {
 		this.agreement = agreement;
 	}
-	public Types getType() {
-		return type;
-	}
-	public void setType(Types type) {
-		this.type = type;
-	}
+	
 	public Brand getBrand() {
 		return brand;
 	}
@@ -62,7 +56,7 @@ public class Product {
 		this.brand = brand;
 	}
 	public Product(String name, int price, String description, int quantity, String agreement,
-			Types type, Brand brand, SystemProduct systemProduct) {
+			Brand brand, SystemProduct systemProduct) {
 		if (price <= systemProduct.priceRange.max && price >= systemProduct.priceRange.min) {
 		
 		this.name = name;		
@@ -70,7 +64,6 @@ public class Product {
 		this.description = description;
 		this.quantity = quantity;
 		this.agreement = agreement;
-		this.type = type;
 		this.brand = brand;
 		this.systemProduct = systemProduct;
 		}
@@ -80,7 +73,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [ name=" + name + ", price=" + price + ", description="
-				+ description + ", quantity=" + quantity + ", agreement=" + agreement + ", type=" + type + ", brand="
+				+ description + ", quantity=" + quantity + ", agreement=" + agreement  + ", brand="
 				+ brand + ", systemProduct=" + systemProduct + "]";
 	} 
 	
