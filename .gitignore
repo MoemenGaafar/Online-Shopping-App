@@ -1,4 +1,8 @@
 /bin/
 /.classpath
 /*.project
+<<<<<<< HEAD
 /.settings
+=======
+/.settings
+>>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
