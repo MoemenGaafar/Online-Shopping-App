@@ -1,5 +1,7 @@
 import javafx.fxml.FXML;
+
 import javafx.scene.control.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +20,9 @@ import javafx.stage.Stage;
 import Entities.*; 
 import javafx.fxml.Initializable;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class BuyerController implements Initializable{
 
 private Buyer buyer;
@@ -29,6 +34,11 @@ private LinkedList<OnsiteStore> onsiteStoresList;
 private LinkedList<OnlineStore> onlineStoresList; 
 
 private LinkedList<Product> productsList;
+
+private LinkedList<Brand> brandsList;
+
+private LinkedList<Category> categoriesList;
+
 
 public Buyer getBuyer() {
 	return buyer;
@@ -60,6 +70,25 @@ private ChoiceBox<?> PaymentTypeCheckBox;
 @FXML
 private Button ConfirmPaymentButton;
 
+@FXML
+private TableView<Product> ProductsTableView;
+
+@FXML
+private TableColumn<Product, String> ProductNameCol;
+
+@FXML
+private TableColumn<Product, Integer> ProductPriceCol;
+
+@FXML
+private TableColumn<Product, String> ProductDescriptionCol;
+
+@FXML
+private TableColumn<Product, String> ProductStoreNameCol;
+
+
+@FXML
+private TableColumn<Product, Integer> ProductQuantityCol;
+
 
 @FXML
 void handleAgreementsCheckBox(ActionEvent event) {
@@ -75,7 +104,7 @@ void makePayment(ActionEvent event) {
 void ConfirmPayment(ActionEvent event) {
 
 }
-
+	
 
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
@@ -124,21 +153,19 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	
 	
 	// Initialize products inventory
-    productsList = new LinkedList<Product>(); 
-    try {        	
-    	File myObj = new File("src\\resources\\products.txt");
-        Scanner myReader = new Scanner(myObj);
-        while (myReader.hasNextLine()) {
-          String name = myReader.nextLine();
-          //Product product = new Product(name); 
-          //productsList.add(product);        
-        }
-        myReader.close();        
-    }
-    catch (FileNotFoundException e) {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
+	productsList = Utilities.loadProducts();
+	
+	final ObservableList<Product> productsData = FXCollections.observableArrayList(productsList);
+	
+//	ProductNameCol.setCellValueFactory(
+//		    new PropertyValueFactory<Person,String>("firstName")
+//		);
+//		lastNameCol.setCellValueFactory(
+//		    new PropertyValueFactory<Person,String>("lastName")
+//		);
+//		emailCol.setCellValueFactory(
+//		    new PropertyValueFactory<Person,String>("email")
+//		);
 	
 } 
 

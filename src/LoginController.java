@@ -1,4 +1,5 @@
 import javafx.fxml.FXML;
+
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
@@ -22,8 +23,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*;
-//import classes.AlertBox;
-//import classes.login.LoginController;
 import javafx.fxml.Initializable;
 
 // Controller class for login boundary

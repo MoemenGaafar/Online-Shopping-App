@@ -52,9 +52,9 @@ public class Store {
 	} 
 	
 	boolean addProduct( String name, int price, String description, int quantity, String agreement,
-			Types type, Brand brand, SystemProduct systemProduct) {
+			Types type, Brand brand, SystemProduct systemProduct, Store store) {
 		Product product = new Product(name,price, description, quantity, agreement,
-				brand, systemProduct); 
+				brand, systemProduct, store); 
 		products.add(product); 
 		return true; 
 	}
