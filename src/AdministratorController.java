@@ -21,7 +21,9 @@ import javafx.fxml.Initializable;
 
 public class AdministratorController implements Initializable {
 	
-    private Administrator administrator; 
+	private Stage prevStage;
+
+	private Administrator administrator; 
     
     private LinkedList<OnsiteStore> onsiteStoreSuggestionsList; 
     
@@ -132,6 +134,10 @@ public class AdministratorController implements Initializable {
     void addressOnsiteSSuggestion(ActionEvent event) {
 
     }
+    
+    public void setStage(Stage prevStage) {
+        this.prevStage = prevStage;
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -139,7 +145,7 @@ public class AdministratorController implements Initializable {
 		// Initialize categories inventory
 	    categoriesList = new LinkedList<Category>(); 
         try {        	
-        	File myObj = new File("resources\\brands.txt");
+        	File myObj = new File("src\\resources\\brands.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String name = myReader.nextLine();
@@ -156,7 +162,7 @@ public class AdministratorController implements Initializable {
      // Initialize onsite stores inventory
             onsiteStoreSuggestionsList = new LinkedList<OnsiteStore>(); 
      		try {    	
-         	File myObj = new File("resources\\onsiteStores.txt");
+         	File myObj = new File("src\\resources\\onsiteStores.txt");
              Scanner myReader = new Scanner(myObj);
              while (myReader.hasNextLine()) {
                int nationalID = Integer.parseInt(myReader.nextLine());
@@ -178,7 +184,7 @@ public class AdministratorController implements Initializable {
              // Initialize online stores inventory 
      		onlineStoreSuggestionsList = new LinkedList<OnlineStore>();  
              try {        	
-             	File myObj = new File("resources\\onlineStores.txt");
+             	File myObj = new File("src\\resources\\onlineStores.txt");
                  Scanner myReader = new Scanner(myObj);
                  while (myReader.hasNextLine()) {
                    int nationalID = Integer.parseInt(myReader.nextLine());

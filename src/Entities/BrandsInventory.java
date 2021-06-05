@@ -21,8 +21,8 @@ public class BrandsInventory {
 	
 	public Boolean addBrand(String name)
 	{
-		Brand brand = new Brand(name); 
-		brands.add(brand); 
+//		Brand brand = new Brand(name); 
+//		brands.add(brand); 
 		return true; 	
 	}
 	
