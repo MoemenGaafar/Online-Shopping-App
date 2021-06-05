@@ -12,6 +12,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import javax.swing.event.ChangeListener;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +68,7 @@ private Button MakePaymentButton;
 private TextField PaymentIDTextField;
 
 @FXML
-private ChoiceBox<?> PaymentTypeCheckBox;
+private ChoiceBox<String> PaymentTypeCheckBox;
 
 @FXML
 private Button ConfirmPaymentButton;
@@ -104,6 +106,13 @@ void makePayment(ActionEvent event) {
 @FXML
 void ConfirmPayment(ActionEvent event) {
 
+}
+
+@FXML
+void productSelected(ActionEvent event) {
+//	Product selectedProduct = ProductsTableView.getSelectionModel().getSelectedItem();
+//	System.out.println(selectedProduct);
+//	AgreementsCheckBox.setText(selectedProduct.getAgreement());
 }
 	
 
@@ -178,6 +187,11 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		    new PropertyValueFactory<Product,String>("storeName")
 		);
 	 ProductsTableView.setItems(productsData);
+	 
+	 PaymentTypeCheckBox.getItems().add("On Delivery");
+	 PaymentTypeCheckBox.getItems().add("Credit Card");
+	 PaymentTypeCheckBox.getItems().add("Voucher");
+
 
 } 
 
