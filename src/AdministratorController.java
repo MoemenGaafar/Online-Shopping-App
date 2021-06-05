@@ -1,7 +1,10 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -19,6 +22,7 @@ import Entities.*;
 import javafx.fxml.Initializable;
 
 
+
 public class AdministratorController implements Initializable {
 	
 	private Stage prevStage;
@@ -32,6 +36,8 @@ public class AdministratorController implements Initializable {
     private LinkedList<Category> categoriesList;
     
     private LinkedList<Brand> brandsList;
+    
+    private LinkedList<SystemProduct> systemProductsList;
 
     
     
@@ -93,7 +99,7 @@ public class AdministratorController implements Initializable {
     private Button OnlineAddressSSuggestionButton;
 
     @FXML
-    private ChoiceBox<Boolean> OnlineSSuggestionAction;
+    private ChoiceBox<String> OnlineSSuggestionAction;
 
     @FXML
     private TableView<Store> OnsiteSSuggestionsTableView;
@@ -102,7 +108,7 @@ public class AdministratorController implements Initializable {
     private Button OnsiteAddressSSuggestionButton;
 
     @FXML
-    private ChoiceBox<Boolean> OnsiteSSuggestionAction; 
+    private ChoiceBox<String> OnsiteSSuggestionAction; 
     
 
     @FXML
@@ -114,24 +120,131 @@ public class AdministratorController implements Initializable {
     @FXML
     private Button AddBrandButton;
     
+    @FXML
+    private ComboBox<OnlineStore> OnlineSSuggestionsComboBox;
+    
+    @FXML
+    private ComboBox<OnsiteStore> OnsiteSSuggestionsComboBox;
+    
 
     @FXML
-    void addBrand(ActionEvent event) {
+    void addBrand(ActionEvent event) throws IOException {
+   	 String brandName = BrandNameTextField.getText();
+     String categoryName = BrandCategoryNameChoiceBox.getValue();
+     
+     Category category = new Category(categoryName); 
+     Brand brand = new Brand(brandName, category); 
+     
+     Boolean exists = false; 
+     for(Brand insideBrand: brandsList)
+     {
+    	 if (insideBrand.getBrandName().equals(brandName))
+    	 {
+    		 System.out.println("found it");
+    		 exists = true; 
+    		 break; 
+    	 }
+     }
+     
+     if (!exists)
+     {
+    	 brandsList.add(brand);
+    	 
+    	 FileWriter fw = new FileWriter("src\\resources\\brands.txt", true);
+         BufferedWriter bw = new BufferedWriter(fw);
+         bw.write(brandName + "\n" + categoryName + "\n");
+         bw.close();
+         AlertBox.showMessage("Brand added!", "Brand added correctl.");
+     }
+     else
+     {
+    	 AlertBox.showMessage("Brand Error", "Brand already exists.");
+     }
+    }
+
+    @FXML
+    void addSystemProduct(ActionEvent event) throws IOException {
+      	 String name = NameTextField.getText();
+         String min = MinPriceTextField.getText();
+         String max = MaxPriceTextField.getText();
+         String type = TypeChoiceBox.getValue();
+         String categoryName = CategoryChoiceBox.getValue();
+         
+         Types systemProductType; 
+         
+         if (type.equals("Online"))
+        	 systemProductType = Types.Online; 
+         else 
+        	 systemProductType = Types.Onsite; 
+         
+         Category category = new Category(categoryName); 
+         SystemProduct systemProduct = new SystemProduct(name, Integer.parseInt(min), Integer.parseInt(max), systemProductType, category); 
+         
+         Boolean exists = false; 
+         for(SystemProduct s: systemProductsList)
+         {
+        	 if (s.getName().equals(name))
+        	 {
+        		 System.out.println("found it");
+        		 exists = true; 
+        		 break; 
+        	 }
+         }
+         
+         if (!exists)
+         {
+        	 systemProductsList.add(systemProduct);
+        	 
+        	 FileWriter fw = new FileWriter("src\\resources\\systemProducts.txt", true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             bw.write(name + "\n" + min + "\n" + max + "\n" + type + "\n" + categoryName + "\n");
+             bw.close();
+             AlertBox.showMessage("System product added!", "System product added correctly.");
+         }
+         else
+         {
+        	 AlertBox.showMessage(" Addition Error", "System product already exists.");
+         }
 
     }
 
     @FXML
-    void addSystemProduct(ActionEvent event) {
+    void addressOnlineSSuggestion(ActionEvent event) throws IOException {
+    	
+    	OnlineStore store = OnlineSSuggestionsComboBox.getValue(); 
+    	
+    	if (OnlineSSuggestionAction.getValue().equals("Accept"))
+    	{
+    		FileWriter fw = new FileWriter("src\\resources\\onlineStores.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(store.getStoreID() + "\n" + store.getName() + "\n" + store.getType() + "\n" + store.getStoreOwner().getUsername());
+            bw.close();
+            AlertBox.showMessage("Online store added!", "Online store added correctly.");
+    	}
+    	else
+    	{
+    		AlertBox.showMessage("Online store not added!", "You rejected online store for now.");
+    	}
 
     }
 
     @FXML
-    void addressOnlineSSuggestion(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addressOnsiteSSuggestion(ActionEvent event) {
+    void addressOnsiteSSuggestion(ActionEvent event) throws IOException {
+    	
+        OnsiteStore store = OnsiteSSuggestionsComboBox.getValue(); 
+    	
+    	if (OnsiteSSuggestionAction.getValue().equals("Accept"))
+    	{
+    		FileWriter fw = new FileWriter("src\\resources\\onsiteStores.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(store.getStoreID() + "\n" + store.getName() + "\n" + store.getType() + "\n" + store.getStoreOwner().getUsername() + "\n" + store.getAddress());
+            bw.close();
+            AlertBox.showMessage("Onsite store added!", "Online store added correctly.");
+    	}
+    	else
+    	{
+    		AlertBox.showMessage("Onsite store not added!", "You rejected onsite store for now.");
+    	}
 
     }
     
@@ -144,8 +257,9 @@ public class AdministratorController implements Initializable {
 		
 		// Initialize categories inventory
 	    categoriesList = new LinkedList<Category>(); 
-        try {        	
-        	File myObj = new File("src\\resources\\brands.txt");
+        try {  
+        	
+        	File myObj = new File("src\\resources\\categories.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String name = myReader.nextLine();
@@ -222,6 +336,56 @@ public class AdministratorController implements Initializable {
      		      System.out.println("An error occurred.");
      		      e.printStackTrace();
      		    }
+             
+             // Initialize system products inventory 
+             systemProductsList = new LinkedList<SystemProduct>(); 
+             try {        	
+             	File myObj = new File("src\\resources\\systemProducts.txt");
+                 Scanner myReader = new Scanner(myObj);
+                 while (myReader.hasNextLine()) {
+                   String name = myReader.nextLine();
+                   int min = Integer.parseInt(myReader.nextLine());
+                   int max = Integer.parseInt(myReader.nextLine());
+                   Types type = Types.valueOf(myReader.nextLine());
+                   String categoryName = myReader.nextLine();
+                   Category category = new Category(categoryName);
+                   SystemProduct systemProduct = new SystemProduct(name, min, max, type, category);
+                   systemProductsList.add(systemProduct);        
+                 }
+                 myReader.close();        
+     	    }
+             catch (FileNotFoundException e) {
+     		      System.out.println("An error occurred.");
+     		      e.printStackTrace();
+     		    }
+             
+             
+             // Initialize Choiceboxes
+             for(Category category: categoriesList)
+             {
+               BrandCategoryNameChoiceBox.getItems().add(category.toString());
+               CategoryChoiceBox.getItems().add(category.toString());
+             }
+             
+             TypeChoiceBox.getItems().add("Online");
+             TypeChoiceBox.getItems().add("Onsite");
+             
+             OnsiteSSuggestionAction.getItems().add("Accept");
+             OnsiteSSuggestionAction.getItems().add("Reject");
+             OnlineSSuggestionAction.getItems().add("Accept");
+             OnlineSSuggestionAction.getItems().add("Reject");
+             
+             for(OnlineStore s: onlineStoreSuggestionsList)
+             {
+               OnlineSSuggestionsComboBox.getItems().add(s);
+             }
+             
+             for(OnsiteStore s: onsiteStoreSuggestionsList)
+             {
+               OnsiteSSuggestionsComboBox.getItems().add(s);
+             }
+            
+             
 	}
 
 }

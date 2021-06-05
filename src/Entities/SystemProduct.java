@@ -1,13 +1,13 @@
 package Entities;
 // System products class
 
-class range{
+   class range{
 	int min; 
 	int max; 
 	range(int min, int max){
 		this.min = min; 
 		this.max = max;
-	}
+	}	
 }
 
 public class SystemProduct {
@@ -42,12 +42,25 @@ public class SystemProduct {
 		this.type = type;
 	}
 	
+	public int getMin() {
+		return priceRange.min;
+	}
+	public int getMax() {
+		return priceRange.max;
+	}
+	
 	public SystemProduct(String name, int min, int max, Types type, Category category) {
 		this.name = name;
 		this.priceRange = new range(min, max); 
 		this.type = type;
 		this.category = category; 
+	}
+	@Override
+	public String toString() {
+		return name + ", Min Price =" + priceRange.min + ", Max Price =" + priceRange.max + ", type=" + type + ", category="
+				+ category;
 	} 
 
+	
 	
 }

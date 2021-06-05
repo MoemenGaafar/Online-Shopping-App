@@ -22,6 +22,12 @@ public class Brand {
 	
 	public Brand(String brandName, Category category) {
 		this.brandName = brandName;
+		this.category = category; 
+	}
+	
+	@Override
+	public String toString() {
+		return brandName + ", category= " + category;
 	} 
 	
 	
