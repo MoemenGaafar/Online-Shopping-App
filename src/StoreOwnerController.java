@@ -33,6 +33,8 @@ public class StoreOwnerController implements Initializable{
     private LinkedList<SystemProduct> systemProductsList; 
     
     private LinkedList<Brand> brandsList; 
+    
+    private LinkedList<Product> productsList;
 	
     public void setStage(Stage prevStage) {
         this.prevStage = prevStage;
