@@ -126,7 +126,7 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	// Initialize products inventory
     productsList = new LinkedList<Product>(); 
     try {        	
-    	File myObj = new File("resources\\products.txt");
+    	File myObj = new File("src\\resources\\products.txt");
         Scanner myReader = new Scanner(myObj);
         while (myReader.hasNextLine()) {
           String name = myReader.nextLine();
