@@ -120,45 +120,10 @@ void productSelected(ActionEvent event) {
 public void initialize(URL arg0, ResourceBundle arg1) {
 	
 	// Initialize onsite stores inventory
-			onsiteStoresList = new LinkedList<OnsiteStore>(); 
-			try {    	
-	    	File myObj = new File("src\\resources\\onsiteStores.txt");
-	        Scanner myReader = new Scanner(myObj);
-	        while (myReader.hasNextLine()) {
-	          int storeID = Integer.parseInt(myReader.nextLine());
-	          String name = myReader.nextLine();
-	          String type = myReader.nextLine();
-	          String username = myReader.nextLine();
-	          String address = myReader.nextLine();
-	          OnsiteStore onsiteStore = new OnsiteStore(storeID, name, type, null, address);  
-        	  onsiteStoresList.add(onsiteStore);         
-	        }
-	        myReader.close();
-			}
-			catch (FileNotFoundException e) {
-			      System.out.println("An error occurred.");
-			      e.printStackTrace();
-			    }
+	onsiteStoresList = Utilities.loadOnsiteStores();
 	        
-	        // Initialize online stores inventory 
-			onlineStoresList = new LinkedList<OnlineStore>(); 
-	        try {        	
-	        	File myObj = new File("src\\resources\\onlineStores.txt");
-	            Scanner myReader = new Scanner(myObj);
-	            while (myReader.hasNextLine()) {
-	              int storeID = Integer.parseInt(myReader.nextLine());
-	              String name = myReader.nextLine();
-	              String type = myReader.nextLine();
-	              String username = myReader.nextLine();
-	              OnlineStore onlineStore = new OnlineStore(storeID, name, type, null);  
-            	  onlineStoresList.add(onlineStore);          
-	            }
-	            myReader.close();        
-		    }
-	        catch (FileNotFoundException e) {
-			      System.out.println("An error occurred.");
-			      e.printStackTrace();
-			    }
+	// Initialize online stores inventory 
+	onlineStoresList = Utilities.loadOnlineStores();
 	
 	
 	

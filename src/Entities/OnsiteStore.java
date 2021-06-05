@@ -22,13 +22,8 @@ public class OnsiteStore extends Store{
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "storeID=" + storeID + ", name=" + name + ", type=" + type
-				+ ", address=" + address;
-=======
 		return "OnsiteStore [storeID=" + storeID + ", name=" + name + ", type=" + type
 				 + "address=" + address +  "]";
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
 	}
 
 	

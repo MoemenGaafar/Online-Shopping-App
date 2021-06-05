@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-mount
-bats
-weed
-women
-=======
 Chipotle
 Food
 Pringles
 Food
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git

@@ -34,12 +34,7 @@ public class Store {
 	public void setType(String type) {
 		this.type = type;
 	}
-<<<<<<< HEAD
-		
-=======
 
-	
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
 	public Store(int storeID, String name, String type, StoreOwner storeOwner) {
 		super();
 		this.storeID = storeID;
@@ -47,19 +42,11 @@ public class Store {
 		this.type = type;
 		this.storeOwner = storeOwner; 
 	} 
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
 	
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "Store [nationalID=" + storeID + ", name=" + name + ", type=" + type + ", store owner=" + storeOwner.username + "]";
-=======
 		return "Store [nationalID=" + storeID + ", name=" + name + ", type=" + type  + ", store owner=" + storeOwner.username + "]";
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
 	}
 	
 	
