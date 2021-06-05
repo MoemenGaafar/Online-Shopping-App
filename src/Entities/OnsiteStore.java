@@ -22,11 +22,9 @@ public class OnsiteStore extends Store{
 
 	@Override
 	public String toString() {
-		return "OnsiteStore [storeID=" + storeID + ", name=" + name + ", type=" + type
-				 + "address=" + address +  "]";
-	}
 
-	
-	
+		return "storeID=" + storeID + ", name=" + name + ", type=" + type
+				+ ", address=" + address;
+	}	
 	
 }

@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-cats
-1
-3
-Onsite
-women
-fog
-1
-3
-Online
-women
-=======
 Chips
 0
 30
@@ -20,4 +8,3 @@ Sandwich
 100
 Onsite
 Food
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git

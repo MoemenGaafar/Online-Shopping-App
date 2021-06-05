@@ -43,10 +43,10 @@ public class Store {
 		this.storeOwner = storeOwner; 
 	} 
 
-	
 	@Override
 	public String toString() {
-		return "Store [nationalID=" + storeID + ", name=" + name + ", type=" + type  + ", store owner=" + storeOwner.username + "]";
+
+		return "Store [nationalID=" + storeID + ", name=" + name + ", type=" + type + ", store owner=" + storeOwner.username + "]";
 	}
 	
 	
