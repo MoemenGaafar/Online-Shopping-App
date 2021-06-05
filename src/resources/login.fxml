@@ -17,7 +17,7 @@
             <Text layoutX="190.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
             <Text layoutX="190.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
             <Button fx:id="LoginButton" layoutX="395.0" layoutY="309.0" mnemonicParsing="false" onAction="#login" text="login" />
-            <Button fx:id="Button" layoutX="481.0" layoutY="309.0" mnemonicParsing="false" onAction="#register" text="signup" />
+            <Button fx:id="RegisterButton" layoutX="481.0" layoutY="309.0" mnemonicParsing="false" onAction="#register" text="signup" />
             <Text layoutX="190.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
             <ChoiceBox fx:id="TypeChoiceBox" layoutX="273.0" layoutY="71.0" prefWidth="150.0" />
             <Text fx:id="AddressNoticeLabel" fill="#ff0303" layoutX="432.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You don't have to enter your address to login into an existing account" visible="false" wrappingWidth="201.703857421875" />
