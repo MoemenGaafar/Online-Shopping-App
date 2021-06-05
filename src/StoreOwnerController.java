@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*;
 import javafx.fxml.Initializable;
+import java.util.LinkedList;
 
 // Controller Class for store owner boundary 
 
@@ -25,13 +26,13 @@ public class StoreOwnerController implements Initializable{
 
 	private StoreOwner storeOwner; 
     
-    private OnsiteStoresInventory onsiteStoresInventory; 
+    private LinkedList<OnsiteStore> onsiteStoresList; 
     
-    private OnlineStoresInventory onlineStoresInventory; 
+    private LinkedList<OnlineStore> onlineStoresList; 
     
-    private SystemProductsInventory systemProductsInventory; 
+    private LinkedList<SystemProduct> systemProductsList; 
     
-    private BrandsInventory brandsInventory; 
+    private LinkedList<Brand> brandsList; 
 	
     public void setStage(Stage prevStage) {
         this.prevStage = prevStage;
@@ -46,41 +47,57 @@ public class StoreOwnerController implements Initializable{
 		this.storeOwner = storeOwner;
 	}
 
-	public OnsiteStoresInventory getOnsiteStoresInventory() {
-		return onsiteStoresInventory;
+    public LinkedList<OnsiteStore> getOnsiteStoresList() {
+		return onsiteStoresList;
 	}
 
-	public void setOnsiteStoresInventory(OnsiteStoresInventory onsiteStoresInventory) {
-		this.onsiteStoresInventory = onsiteStoresInventory;
+
+	public void setOnsiteStoresList(LinkedList<OnsiteStore> onsiteStoresList) {
+		this.onsiteStoresList = onsiteStoresList;
 	}
 
-	public OnlineStoresInventory getOnlineStoresInventory() {
-		return onlineStoresInventory;
+
+	public LinkedList<OnlineStore> getOnlineStoresList() {
+		return onlineStoresList;
 	}
 
-	public void setOnlineStoresInventory(OnlineStoresInventory onlineStoresInventory) {
-		this.onlineStoresInventory = onlineStoresInventory;
+
+	public void setOnlineStoresList(LinkedList<OnlineStore> onlineStoresList) {
+		this.onlineStoresList = onlineStoresList;
 	}
+
+
+	public LinkedList<Brand> getBrandsList() {
+		return brandsList;
+	}
+
+
+	public void setBrandsList(LinkedList<Brand> brandsList) {
+		this.brandsList = brandsList;
+	}
+
+
+
 
 
 
 	@FXML
-    private TextField OnlineProductNameTextField;
+    private Button AddOnsiteProductButton;
 
     @FXML
-    private TextField OnlineProductDescriptionTextField;
+    private TextField ProductNameTextField;
 
     @FXML
-    private TextField OnlineProductAgreementsTextField;
+    private TextField ProductDescriptionTextField;
 
     @FXML
-    private ChoiceBox<String> OnlineProductTypeChoiceBox;
+    private TextField ProductAgreementsTextField;
 
     @FXML
-    private TextField OnlineProductQuantityTextField;
+    private TextField ProductQuantityTextField;
 
     @FXML
-    private TextField OnlineProductPriceTextField;
+    private TextField ProductPriceTextField;
 
     @FXML
     private ChoiceBox<String> OnlineProductStoreChoiceBox;
@@ -89,34 +106,19 @@ public class StoreOwnerController implements Initializable{
     private Button AddOnlineProductButton;
 
     @FXML
-    private TextField OnsiteProductNameTextField1;
+    private ChoiceBox<String> SystemProductChoiceBox;
+    
+    @FXML
+    private ChoiceBox<String> BrandChoiceBox;
 
     @FXML
-    private TextField OnsiteProductDescriptionTextField1;
-
-    @FXML
-    private TextField OnsiteProductAgreementsTextField1;
-
-    @FXML
-    private ChoiceBox<String> OnsiteProductTypeChoiceBox1;
-
-    @FXML
-    private TextField OnsiteProductQuantityTextField1;
-
-    @FXML
-    private TextField OnsiteProductPriceTextField1;
-
-    @FXML
-    private ChoiceBox<String> OnsiteProductStoreChoiceBox1;
-
-    @FXML
-    private Button AddOnsiteProductButton1;
+    private ChoiceBox<String> OnsiteProductStoreChoiceBox;
 
     @FXML
     private TextField OnlineStoreNameTextField;
 
     @FXML
-    private TextField OnlineStoreNationalIDTextField;
+    private TextField OnlineStoreIDTextField;
 
     @FXML
     private TextField OnlineStoreTypeTextField;
@@ -125,26 +127,21 @@ public class StoreOwnerController implements Initializable{
     private Button AddOnlineSSuggestionButton;
 
     @FXML
-    private TextField OnsiteStoreNameTextField1;
+    private TextField OnsiteStoreNameTextField;
 
     @FXML
-    private TextField OnsiteStoreNationalIDTextField1;
+    private TextField OnsitetoreIDTextFeild;
 
     @FXML
-    private TextField OnsiteStoreTypeTextField1;
+    private TextField OnsiteStoreTypeTextField;
 
     @FXML
-    private Button AddOnsiteSSuggestionButton1;
+    private Button AddOnsiteSSuggestionButton;
 
     @FXML
     private TextField OnsiteStoreAddressTextField;
     
-    @FXML
-    private ChoiceBox<String> OnlineProductSystemProductChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> OnsiteProductSystemProductChoiceBox1;
-    
+  
     @FXML
     void addOnlineProduct(ActionEvent event) {
 
@@ -169,19 +166,20 @@ public class StoreOwnerController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		// Initialize onsite stores inventory
-		onsiteStoresInventory = new OnsiteStoresInventory(); 
+		onsiteStoresList = new LinkedList<OnsiteStore>(); 
 		try {    	
     	File myObj = new File("src\\resources\\onsiteStores.txt");
         Scanner myReader = new Scanner(myObj);
         while (myReader.hasNextLine()) {
-          int nationalID = Integer.parseInt(myReader.nextLine());
+          int storeID = Integer.parseInt(myReader.nextLine());
           String name = myReader.nextLine();
           String type = myReader.nextLine();
           String username = myReader.nextLine();
           String address = myReader.nextLine();
           if (username == this.storeOwner.getUsername())
           {
-        	  onsiteStoresInventory.addStore(nationalID, name, type, this.storeOwner, address);         	  
+        	  OnsiteStore onsiteStore = new OnsiteStore(storeID, name, type, this.storeOwner, address);  
+        	  onsiteStoresList.add(onsiteStore); 
           }          
         }
         myReader.close();
@@ -192,18 +190,19 @@ public class StoreOwnerController implements Initializable{
 		    }
         
         // Initialize online stores inventory 
-		onlineStoresInventory = new OnlineStoresInventory(); 
+		onlineStoresList = new LinkedList<OnlineStore>(); 
         try {        	
         	File myObj = new File("src\\resources\\onlineStores.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
-              int nationalID = Integer.parseInt(myReader.nextLine());
+              int storeID = Integer.parseInt(myReader.nextLine());
               String name = myReader.nextLine();
               String type = myReader.nextLine();
               String username = myReader.nextLine();
               if (username == this.storeOwner.getUsername())
               {
-            	  onlineStoresInventory.addStore(nationalID, name, type, this.storeOwner);         	  
+            	  OnlineStore onlineStore = new OnlineStore(storeID, name, type, this.storeOwner);  
+            	  onlineStoresList.add(onlineStore);         	  
               }          
             }
             myReader.close();        
@@ -214,7 +213,7 @@ public class StoreOwnerController implements Initializable{
 		    }
         
         // Initialize system products inventory 
-        systemProductsInventory = new SystemProductsInventory(); 
+        systemProductsList = new LinkedList<SystemProduct>(); 
         try {        	
         	File myObj = new File("src\\resources\\systemProducts.txt");
             Scanner myReader = new Scanner(myObj);
@@ -225,7 +224,8 @@ public class StoreOwnerController implements Initializable{
               Types type = Types.valueOf(myReader.nextLine());
               String categoryName = myReader.nextLine();
               Category category = new Category(categoryName);
-              systemProductsInventory.addProduct(name, min, max, type, category);        
+              SystemProduct systemProduct = new SystemProduct(name, min, max, type, category);
+              systemProductsList.add(systemProduct);        
             }
             myReader.close();        
 	    }
@@ -235,13 +235,16 @@ public class StoreOwnerController implements Initializable{
 		    }
         
         // Initialize brands inventory
-        brandsInventory = new BrandsInventory(); 
+        brandsList = new LinkedList<Brand>(); 
         try {        	
         	File myObj = new File("src\\resources\\brands.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String name = myReader.nextLine();
-              brandsInventory.addBrand(name);        
+              String categoryName = myReader.nextLine();
+              Category category = new Category(categoryName);
+              Brand brand = new Brand(name, category); 
+              brandsList.add(brand);        
             }
             myReader.close();        
 	    }
