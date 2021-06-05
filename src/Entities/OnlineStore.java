@@ -9,7 +9,12 @@ public class OnlineStore extends Store {
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "storeID=" + storeID + ", name=" + name + ", type=" + type;
+=======
+		return "OnlineStore [storeID=" + storeID + ", name=" + name + ", type=" + type
+				+ "]";
+>>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
 	}
 
 	

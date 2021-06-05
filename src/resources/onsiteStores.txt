@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 123
 turtles
 blood
 alaa
 hell
+=======
+1
+3am 3essam
+Grocery
+alaa
+Zewail City
+2
+Mall of Egypt
+Mall
+moemen
+Wahat Road
+>>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git

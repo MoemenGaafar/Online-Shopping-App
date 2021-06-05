@@ -1,4 +1,5 @@
 import javafx.fxml.FXML;
+
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
@@ -22,8 +23,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Entities.*;
-//import classes.AlertBox;
-//import classes.login.LoginController;
 import javafx.fxml.Initializable;
 
 // Controller class for login boundary
@@ -84,12 +83,7 @@ public class LoginController implements Initializable {
 		buyers.add(buyer); 
 		return true; 
 	}
-	
-	public Boolean addStoreOwner(String username, String password) {
-		StoreOwner storeOwner = new StoreOwner(username, password); 
-		storeOwners.add(storeOwner); 
-		return true; 
-	}
+	 
 	
 	public Boolean addAdmin(String username, String password) {
 		Administrator admin = new Administrator(username, password); 
@@ -261,22 +255,7 @@ public class LoginController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		System.out.println("Inside");
 		// Initialize store owners list
-		this.storeOwners = new LinkedList<StoreOwner>();
-		try {
-	    	File myObj = new File("src\\resources\\storeOwners.txt");
-	    	System.out.println(myObj.getAbsolutePath());
-	        Scanner myReader = new Scanner(myObj);
-	        while (myReader.hasNextLine()) {
-	          String username = myReader.nextLine();
-	          String password = myReader.nextLine();
-	          addStoreOwner(username, password); 
-	        }
-	        myReader.close();        
-		}
-		catch (FileNotFoundException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }	
+		this.storeOwners = Utilities.loadStoreOwners();
 		
 		
 		// Initialize buyers list
