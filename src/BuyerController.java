@@ -2,6 +2,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,6 +50,7 @@ public Buyer getBuyer() {
 
 public void setBuyer(Buyer buyer) {
 	this.buyer = buyer;
+	 AddressTextField.setText(buyer.getAddress());
 }
 
 
@@ -68,10 +70,26 @@ private Button MakePaymentButton;
 private TextField PaymentIDTextField;
 
 @FXML
-private ChoiceBox<String> PaymentTypeCheckBox;
+private ChoiceBox<String> PaymentTypeChoiceBox;
+
+@FXML
+private Text PaymentIDLabel;
+
 
 @FXML
 private Button ConfirmPaymentButton;
+
+@FXML
+private Text OrderDetailsText;
+
+@FXML
+private Tab makePaymentTab;
+
+@FXML
+private Tab buyProductTab;
+
+@FXML
+private TabPane tabPane;
 
 @FXML
 private TableView<Product> ProductsTableView;
@@ -95,12 +113,39 @@ private TableColumn<Product, Integer> ProductQuantityCol;
 
 @FXML
 void handleAgreementsCheckBox(ActionEvent event) {
+	if(AgreementsCheckBox.isSelected())
+		MakePaymentButton.setDisable(false);
+	else
+		MakePaymentButton.setDisable(true);
+}
 
+@FXML
+void cancelOrder(ActionEvent event) {
+	tabPane.getSelectionModel().select(buyProductTab);
+	buyProductTab.setDisable(false);
+	makePaymentTab.setDisable(true);
 }
 
 @FXML
 void makePayment(ActionEvent event) {
-
+	Product selectedProduct = ProductsTableView.getSelectionModel().getSelectedItem();
+	try {
+		int quantity = Integer.parseInt(ProductQuantityTextField.getText());
+		if (quantity <= selectedProduct.getQuantity()) {
+			tabPane.getSelectionModel().select(makePaymentTab);
+			buyProductTab.setDisable(true);
+			makePaymentTab.setDisable(false);
+			OrderDetailsText.setText("You are buying " + Integer.toString(quantity) + " of " + selectedProduct.getName()
+			+ " for a total of " + Integer.toString(quantity * selectedProduct.getPrice()) + " pounds.");
+		}
+		else {
+			AlertBox.showMessage("Invalid Quantity", "There is not enough quantity for your order!");
+		}
+	}
+	catch (Exception e) {
+		AlertBox.showMessage("Invalid Quantity", "Please Enter a Valid Quantity");
+	}
+	
 }
 
 @FXML
@@ -108,13 +153,6 @@ void ConfirmPayment(ActionEvent event) {
 
 }
 
-@FXML
-void productSelected(ActionEvent event) {
-//	Product selectedProduct = ProductsTableView.getSelectionModel().getSelectedItem();
-//	System.out.println(selectedProduct);
-//	AgreementsCheckBox.setText(selectedProduct.getAgreement());
-}
-	
 
 @Override
 public void initialize(URL arg0, ResourceBundle arg1) {
@@ -153,11 +191,41 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		);
 	 ProductsTableView.setItems(productsData);
 	 
-	 PaymentTypeCheckBox.getItems().add("On Delivery");
-	 PaymentTypeCheckBox.getItems().add("Credit Card");
-	 PaymentTypeCheckBox.getItems().add("Voucher");
-
-
+	 PaymentTypeChoiceBox.getItems().add("On Delivery");
+	 PaymentTypeChoiceBox.getItems().add("Credit Card");
+	 PaymentTypeChoiceBox.getItems().add("Voucher");
+	 
+	 ProductsTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		    	if (newSelection.getAgreement().equals("None")) {
+		    		MakePaymentButton.setDisable(false);
+		    	}
+		    	else {
+		    		AgreementsCheckBox.setText(newSelection.getAgreement());
+		    		AgreementsCheckBox.setVisible(true);
+		    	}
+		    	}
+		});
+	 
+	 PaymentTypeChoiceBox.setOnAction((event) -> {
+			
+			String type = PaymentTypeChoiceBox.getValue();
+			if (type.equals("On Delivery")) {
+				PaymentIDLabel.setVisible(false);
+				PaymentIDTextField.setVisible(false);
+			}
+			else {
+				PaymentIDLabel.setVisible(true);
+				PaymentIDTextField.setVisible(true);
+				if (type.equals("Credit Card")) {
+					PaymentIDLabel.setText("Card Number:");
+				}
+				else if (type.equals("Voucher")) {
+					PaymentIDLabel.setText("Voucher ID:");
+				}
+			}
+	 });
+			
 } 
 
 public void setStage(Stage prevStage) {
