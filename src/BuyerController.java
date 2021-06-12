@@ -4,8 +4,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -149,8 +151,33 @@ void makePayment(ActionEvent event) {
 }
 
 @FXML
-void ConfirmPayment(ActionEvent event) {
-
+void ConfirmPayment(ActionEvent event) throws IOException {
+	LinkedList<Order> orders = Utilities.loadOrders();
+	int newOrderID = orders.getLast().getOrderID() + 1;
+	String address = AddressTextField.getText();
+	Product product = ProductsTableView.getSelectionModel().getSelectedItem();
+	int boughtQuantity = Integer.parseInt(ProductQuantityTextField.getText());
+	product.setQuantity(product.getQuantity() - boughtQuantity);
+	Payment payment = new PaymentFactory().createPayment(
+			PaymentTypeChoiceBox.getSelectionModel().getSelectedItem(), PaymentIDTextField.getText());
+	if (payment == null) {
+	    AlertBox.showMessage("Invalid Voucher!", "Voucher either does not exist or has expired!");
+	    return;
+	}
+	Order newOrder = new Order(newOrderID, address, product, buyer, payment);
+	orders.add(newOrder);
+  	FileWriter fw = new FileWriter("src\\resources\\orders.txt", true);
+    BufferedWriter bw = new BufferedWriter(fw);
+    bw.write(newOrderID + "\n" + address + "\n" + product.getName() + "\n" + buyer.getUsername() +
+    		"\n" + payment.toString() + "\n");
+    bw.close();
+    AlertBox.showMessage("Successful Order!", "The order is on its way to you!");
+    
+	tabPane.getSelectionModel().select(buyProductTab);
+	buyProductTab.setDisable(false);
+	makePaymentTab.setDisable(true);
+	ProductsTableView.refresh();
+	Utilities.saveProducts(ProductsTableView.getItems());
 }
 
 
