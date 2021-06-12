@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 women
 men
 babies
 bats
-=======
 Food
->>>>>>> branch 'master' of https://github.com/MoemenGaafar/Online-Shopping-App.git
