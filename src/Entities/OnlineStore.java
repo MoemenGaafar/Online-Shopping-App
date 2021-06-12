@@ -9,7 +9,6 @@ public class OnlineStore extends Store {
 
 	@Override
 	public String toString() {
-
 		return "storeID=" + storeID + ", name=" + name + ", type=" + type;
 	}	
 }

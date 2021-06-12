@@ -47,7 +47,6 @@ public class Store {
 	public String toString() {
 
 		return "Store [nationalID=" + storeID + ", name=" + name + ", type=" + type + ", store owner=" + storeOwner.username + "]";
-
 	}
 	
 	

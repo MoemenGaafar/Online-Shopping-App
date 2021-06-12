@@ -259,22 +259,8 @@ public class LoginController implements Initializable {
 		
 		
 		// Initialize buyers list
-		this.buyers = new LinkedList<Buyer>();
-		try {
-	    	File myObj = new File("src\\resources\\buyers.txt");
-	    	System.out.println(myObj.getAbsolutePath());
-	        Scanner myReader = new Scanner(myObj);
-	        while (myReader.hasNextLine()) {
-	          String username = myReader.nextLine();
-	          String password = myReader.nextLine();
-	          String address = myReader.nextLine();
-	          addBuyer(username, password, address);}
-	          myReader.close();    	
-		}
-		catch (FileNotFoundException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
+		this.buyers = Utilities.loadBuyers();
+
 		
 		// Initialize admins list
 		this.admins = new LinkedList<Administrator>();

@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -8,11 +10,16 @@ import Entities.Buyer;
 import Entities.Category;
 import Entities.OnlineStore;
 import Entities.OnsiteStore;
+import Entities.Order;
+import Entities.Payment;
 import Entities.Product;
 import Entities.Store;
 import Entities.StoreOwner;
 import Entities.SystemProduct;
 import Entities.Types;
+import Entities.Voucher;
+import Entities.VoucherStatus;
+import javafx.collections.ObservableList;
 
 public class Utilities {
 	
@@ -23,6 +30,9 @@ public class Utilities {
 	static LinkedList<OnlineStore> onlineStores;
 	static LinkedList<OnsiteStore> onsiteStores;
 	static LinkedList<StoreOwner> storeOwners;
+	static LinkedList<Buyer> buyers;
+	static LinkedList<Voucher> vouchers;
+	static LinkedList<Order> orders;
 
 	
 	/////////////////////////////////////////////////// LOADERS ///////////////////////////////////////////
@@ -46,6 +56,29 @@ public class Utilities {
 		 }
 		
 		return storeOwners;	
+	}
+	
+	static LinkedList<Buyer> loadBuyers(){
+		buyers = new LinkedList<Buyer>(); 
+		try {
+	    	File myObj = new File("src\\resources\\buyers.txt");
+	    	System.out.println(myObj.getAbsolutePath());
+	        Scanner myReader = new Scanner(myObj);
+	        while (myReader.hasNextLine()) {
+	          String username = myReader.nextLine();
+	          String password = myReader.nextLine();
+	          String address = myReader.nextLine();
+	  		  Buyer buyer = new Buyer(username, password, address); 
+	  		  buyers.add(buyer); 
+	          }
+	          myReader.close();    	
+		}
+		catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		
+		return buyers;	
 	}
 	
 	static LinkedList<OnlineStore> loadOnlineStores(){
@@ -146,6 +179,32 @@ public class Utilities {
 		
 		return categories;	
 	}
+	
+	static LinkedList<Voucher> loadVouchers(){
+		loadBuyers();
+		loadOnsiteStores();
+		loadOnlineStores();
+		vouchers = new LinkedList<Voucher>(); 
+		try {        	
+		    	File myObj = new File("src\\resources\\vouchers.txt");
+		        Scanner myReader = new Scanner(myObj);
+		        while (myReader.hasNextLine()) {
+		          String voucherID = myReader.nextLine();
+		          Buyer buyer = getBuyer(myReader.nextLine());
+		          Store store = getStore(Integer.parseInt(myReader.nextLine()));
+		          VoucherStatus status = getVoucherValidity(myReader.nextLine());
+		          Voucher voucher = new Voucher(voucherID, buyer, store, status);
+		          vouchers.add(voucher);        
+		        }
+		        myReader.close();
+		 }
+		 catch (FileNotFoundException e) {
+			      System.out.println("An error occurred.");
+			      e.printStackTrace();
+		 }
+		
+		return vouchers;	
+	}
 
 	static LinkedList<Brand> loadBrands(){
 		loadCategories();
@@ -194,6 +253,46 @@ public class Utilities {
 		return systemProducts;	
 	}
 	
+	static LinkedList<Order> loadOrders(){
+		loadVouchers();
+		loadProducts();
+		orders = new LinkedList<Order>(); 
+		try {        	
+		    	File myObj = new File("src\\resources\\orders.txt");
+		        Scanner myReader = new Scanner(myObj);
+		        while (myReader.hasNextLine()) {
+		          int orderID = Integer.parseInt(myReader.nextLine());
+		          String address = myReader.nextLine();
+		          Product product = getProduct(myReader.nextLine());
+		          Buyer buyer = getBuyer(myReader.nextLine());
+		          PaymentFactory paymentFactory = new PaymentFactory();
+		          Payment payment = paymentFactory.createPayment(myReader.nextLine(), myReader.nextLine());
+		          Order order = new Order(orderID, address, product, buyer, payment);
+		          orders.add(order);        
+		        }
+		        myReader.close();
+		 }
+		 catch (FileNotFoundException e) {
+			      System.out.println("An error occurred.");
+			      e.printStackTrace();
+		 }
+		
+		return orders;	
+	}
+	
+	///////////////////////////////////////// SAVERS ///////////////////////////////////////////////
+	static void saveProducts(ObservableList<Product> products) throws IOException {
+	  FileWriter fw = new FileWriter("src\\resources\\products.txt");
+	  for (int i = 0; i < products.size(); i++) {
+		  Product product = products.get(i);
+		  fw.write(product.getName() + "\n" + product.getPrice() + "\n" + 
+				  product.getDescription() + "\n" + product.getQuantity() + "\n" +
+				  product.getAgreement() + "\n" + product.getBrand().getBrandName() + "\n" +
+				  product.getSystemProduct().getName() + "\n" + product.getStore().getStoreID() + "\n");
+	  }
+	  fw.close();
+	}
+	
 	///////////////////////////////////////// HELPERS ///////////////////////////////////////////////
 	
 	static Store getStore(int ID) {
@@ -215,6 +314,15 @@ public class Utilities {
 		for (int i = 0; i < storeOwners.size(); i++) {
 			if (storeOwners.get(i).getUsername().equals(username)) {
 				return storeOwners.get(i);
+			}
+		}
+		return null;
+	}
+	
+	static Buyer getBuyer(String username) {
+		for (int i = 0; i < buyers.size(); i++) {
+			if (buyers.get(i).getUsername().equals(username)) {
+				return buyers.get(i);
 			}
 		}
 		return null;
@@ -247,11 +355,39 @@ public class Utilities {
 		return null;
 	}
 	
+	static Voucher getVoucher(String voucherID) {
+		for (int i = 0; i < vouchers.size(); i++) {
+			if (vouchers.get(i).getVoucherID().equals(voucherID)) {
+				return vouchers.get(i);
+			}
+		}
+		return null;
+	}
+	
+	static Product getProduct(String name) {
+		for (int i = 0; i < products.size(); i++) {
+			if (products.get(i).getName().equals(name)) {
+				return products.get(i);
+			}
+		}
+		return null;
+	}
+	
+	
 	static Types getType(String type) {
 		switch (type) {
 		case "Onsite": return Types.Onsite;
 		case "Online": return Types.Online;
 		default: return null;
 		}
+	}
+		
+	static VoucherStatus getVoucherValidity(String validity) {
+		switch (validity) {
+		case "Valid": return VoucherStatus.Valid;
+		case "Invalid": return VoucherStatus.Invalid;
+		default: return null;
+		}
+			
 	}
 }
